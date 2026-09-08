@@ -121,7 +121,16 @@ ${words.map((w) => "- " + w).join("\n")}`;
 }
 
 /* ---------- kalite kapısı ---------- */
-const STEM = (w) => w.replace(/(ies|ied|ing|ely|es|ed|ly|s|e)$/i, "").slice(0, Math.max(4, w.length - 3));
+const SUFFIX = /(ies|ied|ing|ely|es|ed|ly|s|e)$/i;
+/* Kök: soneki at, sonra max(4, len-3) karakterlik önek.
+ * Kısa kelimede sonek aslında kelimenin kendisidir (wing→ing, boss→s, seed→ed),
+ * bu yüzden sonek atıldıktan sonra kalan 4 karakterden kısaysa kelimeyi olduğu gibi kullan. */
+const STEM = (w) => {
+  const m = w.match(SUFFIX);
+  const base = m ? w.slice(0, -m[1].length) : w;
+  const cut = base.slice(0, Math.max(4, w.length - 3));
+  return cut.length >= 4 ? cut : w.slice(0, Math.max(4, w.length - 3));
+};
 
 function validate(word, rec) {
   const problems = [];
