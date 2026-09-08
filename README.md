@@ -47,6 +47,25 @@ For each word it produces `tr` (Turkish meaning), `d` (English definition) and
 Failures are written to `data/<pack>.failed.json` and skipped. The script
 checkpoints after every batch — rerun it and it only regenerates what is missing.
 
+## Progress
+
+```bash
+node scripts/status.mjs --strict   # tüm paketler: ilerleme + kalite kapısı taraması
+node scripts/merge-hand.mjs data/hand/batch-NNN.json   # el üretimi partiyi pakete birleştir
+```
+
+| Pack | Done | Target | Status |
+|---|---|---|---|
+| 🗣 Everyday English | 1,819 | 2,712 | kalan 893 (92 orta, 801 ileri) |
+| 🎓 Academic Core | 570 | 570 | ✔ bitti |
+| 📚 IELTS & TOEFL | 963 | 963 | ✔ bitti |
+| **Total** | **3,352** | **4,245** | **%79** |
+
+Hand-written batches live in `data/hand/` and are merged into the pack by
+`scripts/merge-hand.mjs`, which enforces the same quality gate as the
+generator. Entries rejected by the gate are parked in `data/hand-rejects.json`
+until they are rewritten (the file is empty when every reject has been resolved).
+
 ## Layout
 
 ```
