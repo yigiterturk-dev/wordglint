@@ -56,10 +56,10 @@ node scripts/merge-hand.mjs data/hand/batch-NNN.json   # el üretimi partiyi pak
 
 | Pack | Done | Target | Status |
 |---|---|---|---|
-| 🗣 Everyday English | 2,511 | 2,712 | kalan 201 (hepsi ileri) |
+| 🗣 Everyday English | 2,571 | 2,712 | kalan 141 (hepsi ileri) |
 | 🎓 Academic Core | 570 | 570 | ✔ bitti |
 | 📚 IELTS & TOEFL | 963 | 963 | ✔ bitti |
-| **Total** | **4,044** | **4,245** | **%95** |
+| **Total** | **4,104** | **4,245** | **%97** |
 
 Hand-written batches live in `data/hand/` and are merged into the pack by
 `scripts/merge-hand.mjs`, which enforces the same quality gate as the
