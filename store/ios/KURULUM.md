@@ -29,9 +29,9 @@ Doldurulacaklar:
 | Category | Education (ikincil: Word) |
 | Price | Free |
 | Age rating | Anketin hepsine "None" → 4+ |
-| App Privacy | **Data Not Collected** (uygulama hiçbir veri toplamıyor, her şey cihazda) |
-| Privacy Policy URL | Yiğit gönderecek |
-| Support URL | Yiğit gönderecek |
+| App Privacy | **Data Not Collected** (uygulama hiçbir veri toplamıyor, hiçbir sunucuya bağlanmıyor; font bile gömülü) |
+| Privacy Policy URL | https://nocturndev.com/wordspark/privacy.html |
+| Support URL | https://nocturndev.com/wordspark/support.html |
 | Description / keywords | `listing-ios-en.md` |
 | Screenshots (6.9") | `screenshots-6.9/` klasörü (1320×2868) |
 | App icon | Projede hazır; 1024'lük: `app-icon-1024.png` |
