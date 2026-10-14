@@ -1,0 +1,10 @@
+{
+  "appId": "com.nocturndev.wordspark",
+  "appName": "WordSpark",
+  "webDir": "www",
+  "backgroundColor": "#150826",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#150826"
+  }
+}

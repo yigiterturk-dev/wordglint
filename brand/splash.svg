@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-854 -854 2732 2732">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="70%">
+      <stop offset="0" stop-color="#2d1650"/>
+      <stop offset="1" stop-color="#150826"/>
+    </radialGradient>
+    <linearGradient id="sp" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb23e"/>
+      <stop offset="1" stop-color="#ff5470"/>
+    </linearGradient>
+    <filter id="glow" filterUnits="userSpaceOnUse" x="-854" y="-854" width="2732" height="2732">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+  <rect x="-854" y="-854" width="2732" height="2732" fill="#150826"/>
+  <g id="mark" transform="translate(512 512) scale(.84) translate(-560 -540)">
+    <polyline points="215,340 362,712 512,452 662,712 760,464" fill="none" stroke="url(#sp)" stroke-width="112" stroke-linejoin="miter" stroke-miterlimit="10" stroke-linecap="butt" opacity=".55" filter="url(#glow)"/>
+    <polyline points="215,340 362,712 512,452 662,712 760,464" fill="none" stroke="url(#sp)" stroke-width="112" stroke-linejoin="miter" stroke-miterlimit="10" stroke-linecap="butt"/>
+    <path d="M810 196 C822 286 838 302 928 314 C838 326 822 342 810 432 C798 342 782 326 692 314 C782 302 798 286 810 196Z" fill="#ffb23e"/>
+  </g>
+</svg>

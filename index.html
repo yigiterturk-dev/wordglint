@@ -301,6 +301,9 @@
   .swipecard .hintL{left:12px;color:var(--miss);border:2px solid var(--miss);transform:rotate(-8deg)}
 
   /* ---------- v4: düello ---------- */
+  .native #duelBtn{display:none}
+  .wsmark{width:1.15em;height:.86em;vertical-align:-.1em;filter:drop-shadow(0 0 6px rgba(255,120,80,.45))}
+  .wsmark.big-mark{width:96px;height:72px;filter:drop-shadow(0 0 18px rgba(255,120,80,.5))}
   .duelcmp{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:15px;
     padding:14px;text-align:center;font-family:var(--disp);font-weight:600;font-size:16px;display:none}
   .duelcmp .win{color:var(--mint)} .duelcmp .lose{color:var(--miss)}
@@ -447,7 +450,7 @@
         </svg>
         <div class="n"><span id="streakN">0</span><small>STREAK</small></div>
       </div>
-      <div class="logo"><span class="b">⚡</span><span>WORD<span class="spark-text">SPARK</span></span></div>
+      <div class="logo"><span class="b"><svg class="wsmark" viewBox="150 170 800 600" aria-hidden="true"><defs><linearGradient id="wsG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb23e"/><stop offset="1" stop-color="#ff5470"/></linearGradient></defs><polyline points="215,340 362,712 512,452 662,712 760,464" fill="none" stroke="url(#wsG)" stroke-width="112" stroke-linejoin="miter" stroke-miterlimit="10"/><path d="M810 196C822 286 838 302 928 314C838 326 822 342 810 432C798 342 782 326 692 314C782 302 798 286 810 196Z" fill="#ffb23e"/></svg></span><span>WORD<span class="spark-text">SPARK</span></span></div>
       <div style="display:flex;gap:8px">
         <div class="gear" onclick="go('dict')" title="Dictionary">📖</div>
         <div class="gear" onclick="go('badges')" title="Badges">🏅</div>
@@ -733,7 +736,7 @@ const W=s=>s.trim().split("\n").map(l=>{
   return {w, tr:(tr||"").trim(), d:(d||"").trim(), s:(sen||"").trim(), z:+(z||2)};
 });
 const PACKS = {
-  core: { emo:"🗣", name:"Everyday English", desc:"The 2,800 words you meet every day", nameTr:"Günlük İngilizce", descTr:"Her gün karşına çıkan 2.800 kelime", free:true, price:29, src:"NGSL", words:W(`
+  core: { emo:"🗣", name:"Everyday English", desc:"The words you meet every day", nameTr:"Günlük İngilizce", descTr:"Her gün karşına çıkan kelimeler", free:true, price:29, src:"NGSL", words:W(`
 ability=yetenek, beceri|the power or skill to do something|She has a rare ability to calm a nervous crowd.|1
 achieve=başarmak, elde etmek|to succeed in reaching a goal after effort|They achieved more in one year than anyone expected.|1
 afford=parası yetmek|to have enough money or time for something|We cannot afford a second car on one salary.|1
@@ -759,7 +762,7 @@ tired=yorgun|needing rest or sleep|After the long drive everyone was too tired t
 useful=faydalı, işe yarar|helping you do something more easily|A second charger is surprisingly useful when travelling.|1
 weather=hava durumu|the state of the air, such as rain or sun|The weather turned cold the week the festival began.|1`) },
   mix: { emo:"⚡", name:"Spark Mix", desc:"A little of everything", nameTr:"Karışık", descTr:"Hepsinden biraz", free:true, price:29, words:[] }, // filled below
-  academic: { emo:"🎓", name:"Academic Core", desc:"Coxhead's Academic Word List · 570 families", nameTr:"Akademik Çekirdek", descTr:"Coxhead Akademik Kelime Listesi · 570 aile", free:false, price:39, src:"AWL", words:W(`
+  academic: { emo:"🎓", name:"Academic Core", desc:"Coxhead's Academic Word List", nameTr:"Akademik Çekirdek", descTr:"Coxhead Akademik Kelime Listesi", free:false, price:39, src:"AWL", words:W(`
 analyse=incelemek, çözümlemek|to study something closely to understand its parts|Researchers analysed ten years of rainfall data.|1
 approach=yaklaşım; yaklaşmak|a particular way of dealing with a problem|Her approach to teaching grammar is unusually practical.|1
 assume=varsaymak|to accept something as true without proof|Do not assume the reader knows your abbreviations.|1
@@ -784,7 +787,7 @@ similar=benzer|almost the same but not identical|The two dialects are similar en
 structure=yapı|the way parts are arranged to form a whole|The essay has a clear structure and an unclear argument.|1
 theory=kuram, teori|a set of ideas that explains something|A theory survives only as long as the evidence allows.|1
 vary=değişmek, farklılık göstermek|to be different in different cases|Prices vary considerably between the two regions.|1`) },
-  exam:{ emo:"📚", name:"IELTS & TOEFL", desc:"New Academic Word List · 963 words", nameTr:"IELTS & TOEFL", descTr:"Yeni Akademik Kelime Listesi · 963 kelime", free:false, price:39, src:"NAWL", words:W(`
+  exam:{ emo:"📚", name:"IELTS & TOEFL", desc:"New Academic Word List", nameTr:"IELTS & TOEFL", descTr:"Yeni Akademik Kelime Listesi", free:false, price:39, src:"NAWL", words:W(`
 accumulate=biriktirmek|to collect a growing amount over time|Dust accumulates fast in an empty house.|2
 ambiguous=belirsiz, iki anlamlı|open to more than one interpretation|The wording of clause four is dangerously ambiguous.|3
 coherent=tutarlı|clear and logically connected|A coherent argument links every claim to evidence.|2
@@ -915,7 +918,11 @@ function cycleGoal(){ // Ayarlar: YKS → KPSS → YDS → Merak döngüsü
   fillStats(); renderPacks(); buzz(6);
 }
 let adUnlock=LS.get("adUnlock",{}); // reklamla açılanlar: {pack:"YYYY-MM-DD"} — sadece o gün geçerli
-function isUnlocked(k){ return PACKS[k].free || S.pro || S.owned.includes(k) || adUnlock[k]===today(); }
+// mağaza sürümü (Capacitor native): ödeme altyapısı gelene kadar tüm paketler açık, satın alma/reklam ekranı hiç açılmaz
+const NATIVE_FREE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
+// native'de düello linki çalışmaz (origin capacitor://localhost) → düello gizli, paylaşımda link yok
+if(NATIVE_FREE) document.documentElement.classList.add("native");
+function isUnlocked(k){ return NATIVE_FREE || PACKS[k].free || S.pro || S.owned.includes(k) || adUnlock[k]===today(); }
 function effShowMean(k){ k=k||pack; if(S.showMean!==null) return S.showMean; return k==="weak" ? true : !PACKS[k].free; } // sınav paketleri + zayıf destede varsayılan AÇIK
 
 /* ============ i18n — kaynak dil İNGİLİZCE, TR bir sözlük katmanı ============
@@ -940,6 +947,8 @@ const I18N_TR={
  "Rebuild the sequence":"Gördüğün sırayla diz","Swipe seen / not seen":"Vardı / yoktu seç",
  "Four options, one right":"4 şıktan anlamı bul","Meaning in, word out":"Anlamdan kelimeyi yaz",
  "How many in 60 seconds?":"60 sn'de kaç doğru?",
+ "Academic band vocabulary":"Akademik band kelimeleri","Academic reading & writing":"Akademik okuma ve yazma","The Academic Word List":"Akademik Kelime Listesi",
+ "ORDER":"SIRA","RECOGNITION":"TANIMA","MEANING":"ANLAM","TYPING":"YAZMA","BEAT THE CLOCK":"ZAMANA KARŞI","MOCK TEST":"MİNİ DENEME",
  "Seen":"Vardı","New":"Yoktu","Learning":"Çalışılıyor","Weak":"Zayıf","Learned":"Öğrenildi",
  "✓ Seen":"✓ Vardı","✗ New":"✗ Yoktu","Free":"Ücretsiz","Unlocked":"Açık","Start":"Başla","Play ⚡":"Oyna ⚡",
  "🎯 Your goal":"🎯 Hedefin","🔒 Your goal":"🔒 Hedefin","🔒 Locked":"🔒 Kilitli","No results":"Sonuç yok",
@@ -1955,6 +1964,7 @@ function finish(g){
 function encB64(s){ return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
 function decB64(s){ return decodeURIComponent(escape(atob(s.replace(/-/g,"+").replace(/_/g,"/")))); }
 function duelLink(r){
+  if(NATIVE_FREE) return null;
   const payload=[r.seed,r.pack,r.mode,r.n,r.speed,r.pct,r.name||""].join("|");
   return location.origin+location.pathname+"?d="+encB64(payload);
 }
@@ -1969,7 +1979,7 @@ function parseDuel(q){
 /* Not: "Rematch" da aynı desteyi (aynı seed) paylaşır — hafıza antrenmanında desteyi iki tarafın da görmüş olması adil */
 async function duelShare(){
   const r=lastResult; if(!r) return;
-  const url=duelLink(r);
+  const url=duelLink(r); if(!url) return;
   const txt=`Beat me ⚡ I scored ${r.pct}% on WordSpark`;
   buzz(8);
   try{
@@ -2109,7 +2119,7 @@ function renderDictList(){
 
 /* ============ ONBOARDING ============ */
 const OB=[
-  {e:"⚡",h:"Vocabulary at spark speed",p:"Academic and everyday English words flash past — you catch them. One hand, no internet, sixty-second rounds.",hTr:"Kelime ezberi, şimşek hızında",pTr:"Akademik ve günlük İngilizce kelimeler şimşek gibi akar, sen yakalarsın. Tek elle, internetsiz, 60 saniyelik turlar.",demo:true},
+  {e:'<svg class="wsmark big-mark" viewBox="150 170 800 600" aria-hidden="true"><defs><linearGradient id="wsG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb23e"/><stop offset="1" stop-color="#ff5470"/></linearGradient></defs><polyline points="215,340 362,712 512,452 662,712 760,464" fill="none" stroke="url(#wsG)" stroke-width="112" stroke-linejoin="miter" stroke-miterlimit="10"/><path d="M810 196C822 286 838 302 928 314C838 326 822 342 810 432C798 342 782 326 692 314C782 302 798 286 810 196Z" fill="#ffb23e"/></svg>',h:"Vocabulary at spark speed",p:"Academic and everyday English words flash past — you catch them. One hand, no internet, sixty-second rounds.",hTr:"Kelime ezberi, şimşek hızında",pTr:"Akademik ve günlük İngilizce kelimeler şimşek gibi akar, sen yakalarsın. Tek elle, internetsiz, 60 saniyelik turlar.",demo:true},
   {e:"🧠",h:"Remember what you saw",p:"Words go by fast; put them in order, recognise them, or pick the meaning. Memory and vocabulary sharpen together.",hTr:"Gördüğünü hatırla",pTr:"Kelimeler hızla geçer; sırala, tanı ya da anlamını bul. Hafızan ve kelime dağarcığın birlikte keskinleşir.",demo:false},
   {e:"⚔️",h:"Build a streak, beat a friend",p:"Everyone gets the same deck in the Daily Spark. Share your score, send a duel link, climb levels on combos.",hTr:"Seri yap, arkadaşını geç",pTr:"Günlük Kıvılcım'da herkes aynı desteyi çözer. Skorunu paylaş, düello linki gönder, komboyla seviye atla."},
   {e:"🎯",h:"What are you working towards?",p:"We will put the right pack up front and set your daily goal.",hTr:"Hangi hedefe çalışıyorsun?",pTr:"Sana uygun paketi öne çıkarıp günlük hedefini ayarlayalım.",goal:true},

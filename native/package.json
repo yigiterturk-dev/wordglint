@@ -1,0 +1,16 @@
+{
+  "name": "wordspark-native",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "web": "sh scripts/sync-web.sh",
+    "sync": "sh scripts/sync-web.sh && cap sync ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/ios": "^8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.3"
+  }
+}
