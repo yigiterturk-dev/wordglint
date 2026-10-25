@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * WordSpark içerik üreteci — data/<pack>.seed.json → packs/<pack>.json
+ * Wordglint içerik üreteci — data/<pack>.seed.json → packs/<pack>.json
  *
  * Her kelime için üretilir:
  *   tr : Türkçe karşılık (1–4 kelime, virgülle en fazla 3 anlam)

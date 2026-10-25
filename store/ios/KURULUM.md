@@ -1,4 +1,4 @@
-# WordSpark — iOS yayın adımları (Developer hesabı sahibi için)
+# Wordglint — iOS yayın adımları (Developer hesabı sahibi için)
 
 Gereken: Mac + Xcode (App Store'dan, ücretsiz) + Apple Developer hesabı.
 CocoaPods gerekmez (Swift Package Manager).
@@ -20,7 +20,7 @@ open ios/App/App.xcodeproj
 
 ## 3. App Store Connect'te uygulama kaydı
 appstoreconnect.apple.com → Apps → **+** → New App
-- Platform: iOS · Name: **WordSpark: English Vocabulary** (alınmışsa "WordSpark – Vocabulary")
+- Platform: iOS · Name: **Wordglint: English Vocabulary** (alınmışsa "Wordglint – Vocabulary")
 - Primary language: English (U.S.) · Bundle ID: 2. adımdaki · SKU: `wordspark-ios-1`
 
 Doldurulacaklar:

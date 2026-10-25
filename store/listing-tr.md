@@ -1,12 +1,12 @@
-# Google Play listelemesi — WordSpark (tr-TR)
+# Google Play listelemesi — Wordglint (tr-TR)
 
-**Uygulama adı (30):** WordSpark: İngilizce Kelime
+**Uygulama adı (30):** Wordglint: İngilizce Kelime
 
 **Kısa açıklama (80):**
 Akademik ve günlük İngilizce kelime, 60 saniyelik turlarda. Çevrimdışı.
 
 **Tam açıklama:**
-WordSpark kelime çalışmasını tek elle, otobüste, internetsiz oynanabilen 60
+Wordglint kelime çalışmasını tek elle, otobüste, internetsiz oynanabilen 60
 saniyelik turlara çevirir.
 
 Kelimeler şimşek gibi akar, sen yakalarsın: gördüğün sırayla dizersin, "vardı mı

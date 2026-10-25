@@ -1,4 +1,4 @@
-# WordSpark — Play Console "Data Safety" Cevap Anahtarı
+# Wordglint — Play Console "Data Safety" Cevap Anahtarı
 
 Senaryo: **AdMob'lu sürüm** (Google Mobile Ads SDK dahil, analitik SDK yok, hesap yok, tüm oyun verisi lokal).
 Dayanak: Google'ın resmi AdMob veri beyanı rehberi — SDK'nın otomatik topladıkları: IP adresi, reklam kimliği/cihaz tanımlayıcıları, uygulama içi reklam etkileşimleri, tanılama verisi ([developers.google.com/admob/android/privacy/play-data-disclosure](https://developers.google.com/admob/android/privacy/play-data-disclosure), [Play Console yardım](https://support.google.com/googleplay/android-developer/answer/10787469)).

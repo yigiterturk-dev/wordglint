@@ -1,5 +1,5 @@
-/* WordSpark service worker — offline-first (works with no connection at all) */
-const CACHE = "wordspark-v4"; // v4: sonuç/düello metinleri dile göre, düello adı kaçışlandı, hız hatırlanıyor
+/* Wordglint service worker — offline-first (works with no connection at all) */
+const CACHE = "wordglint-v5"; // v5: yeni ad (Wordglint) — eski cache temizlenir
 const ASSETS = [
   "./",
   "./index.html",

@@ -1,4 +1,4 @@
-/* WordSpark ilerleme paneli.  Kullanım: node scripts/status.mjs [--strict] */
+/* Wordglint ilerleme paneli.  Kullanım: node scripts/status.mjs [--strict] */
 import { readFileSync, existsSync } from "node:fs";
 
 const PACKS = ["core", "academic", "exam"];
@@ -53,7 +53,7 @@ for (const p of PACKS) {
   rows.push({ p, n: pack.length, total, pct, meta, bad: bad.length, dup });
 }
 
-console.log("WordSpark ⚡ ilerleme\n" + "=".repeat(44));
+console.log("Wordglint ⚡ ilerleme\n" + "=".repeat(44));
 let done = 0, all = 0;
 for (const r of rows) {
   done += r.n; all += r.total;

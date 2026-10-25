@@ -7,11 +7,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="WordSpark" />
+<meta name="apple-mobile-web-app-title" content="Wordglint" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
 <link rel="icon" href="icons/icon-192.png" />
-<title>WordSpark — Academic & Everyday English Vocabulary</title>
+<title>Wordglint — Academic & Everyday English Vocabulary</title>
 <meta name="description" content="Learn academic and everyday English vocabulary in 60-second rounds. Built on the Academic Word List, the New General Service List and the New Academic Word List. Works offline." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -450,7 +450,7 @@
         </svg>
         <div class="n"><span id="streakN">0</span><small>STREAK</small></div>
       </div>
-      <div class="logo"><span class="b"><svg class="wsmark" viewBox="150 170 800 600" aria-hidden="true"><defs><linearGradient id="wsG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb23e"/><stop offset="1" stop-color="#ff5470"/></linearGradient></defs><polyline points="215,340 362,712 512,452 662,712 760,464" fill="none" stroke="url(#wsG)" stroke-width="112" stroke-linejoin="miter" stroke-miterlimit="10"/><path d="M810 196C822 286 838 302 928 314C838 326 822 342 810 432C798 342 782 326 692 314C782 302 798 286 810 196Z" fill="#ffb23e"/></svg></span><span>WORD<span class="spark-text">SPARK</span></span></div>
+      <div class="logo"><span class="b"><svg class="wsmark" viewBox="150 170 800 600" aria-hidden="true"><defs><linearGradient id="wsG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb23e"/><stop offset="1" stop-color="#ff5470"/></linearGradient></defs><polyline points="215,340 362,712 512,452 662,712 760,464" fill="none" stroke="url(#wsG)" stroke-width="112" stroke-linejoin="miter" stroke-miterlimit="10"/><path d="M810 196C822 286 838 302 928 314C838 326 822 342 810 432C798 342 782 326 692 314C782 302 798 286 810 196Z" fill="#ffb23e"/></svg></span><span>WORD<span class="spark-text">GLINT</span></span></div>
       <div style="display:flex;gap:8px">
         <div class="gear" onclick="go('dict')" title="Dictionary">📖</div>
         <div class="gear" onclick="go('badges')" title="Badges">🏅</div>
@@ -583,7 +583,7 @@
     <div class="result-scroll">
       <div class="card-share" id="shareCard">
         <div class="halo"></div>
-        <div class="cap"><span class="lg">WORD<span class="spark-text">SPARK</span></span><span class="eyebrow" id="scMode"></span></div>
+        <div class="cap"><span class="lg">WORD<span class="spark-text">GLINT</span></span><span class="eyebrow" id="scMode"></span></div>
         <div class="pct" id="scPct">0%</div>
         <div class="sub" id="scSub"></div>
         <div class="chips" id="scChips"></div>
@@ -664,7 +664,7 @@
     <div class="setrow" onclick="go('badges')" style="cursor:pointer">My badges <span class="faint"><span id="setBadgeN"></span> ›</span></div>
     <div class="setrow" onclick="go('stats')" style="cursor:pointer">My stats <span class="faint">›</span></div>
     <div class="setrow" onclick="resetAll()" style="cursor:pointer;color:var(--miss)">Reset all data <span class="faint">›</span></div>
-    <div style="text-align:center;color:var(--ink3);font-size:12px;margin-top:20px">WordSpark · works offline · v1</div>
+    <div style="text-align:center;color:var(--ink3);font-size:12px;margin-top:20px">Wordglint · works offline · v1</div>
     <div class="cta" style="margin-top:auto"><button class="btn primary" onclick="go('home')">Close</button></div>
   </section>
 
@@ -690,7 +690,7 @@
       </button>
       <button class="opt best" onclick="buyPro()">
         <span class="oi">⚡</span>
-        <span class="ot"><b>WordSpark Pro</b><span>Every pack, no ads, for good</span></span>
+        <span class="ot"><b>Wordglint Pro</b><span>Every pack, no ads, for good</span></span>
         <span class="op">$9.99</span>
       </button>
 
@@ -961,7 +961,7 @@ const I18N_TR={
  "IELTS & TOEFL":"IELTS & TOEFL","Weak Words":"Zayıf Kelimeler","Starred":"Favorilerim",
  "New badge!":"Yeni Rozet!","tap to continue":"dokun → devam","Duel!":"Düello!","Pack":"Paket",
  "Choose how to unlock this pack:":"Bu paketi açmak için birini seç:",
- "Watch an ad":"Reklam izle","Buy this pack":"Tek seferlik aç","WordSpark Pro":"WordSpark Pro",
+ "Watch an ad":"Reklam izle","Buy this pack":"Tek seferlik aç","Wordglint Pro":"Wordglint Pro",
  "Which is the meaning?":"Bu kelimenin anlamı hangisi?",
  "This is the meaning — what is the word?":"Anlamı bu — kelime ne?",
  "💡 sentence hint":"💡 cümle ipucu","type the word…":"kelimeyi yaz…",
@@ -972,7 +972,7 @@ const I18N_TR={
  "What are you working towards?":"Hangi hedefe çalışıyorsun?",
  "University study":"Üniversite","Just everyday English":"Sadece günlük İngilizce",
  "Academic band verbs":"Akademik kelime","No exam, just fluency":"Sınavsız, keyfine",
- "WordSpark · works offline · v1":"WordSpark · çevrimdışı çalışır · v1",
+ "Wordglint · works offline · v1":"Wordglint · çevrimdışı çalışır · v1",
 };
 function detectLang(){
   // Yalnızca kullanıcı Ayarlar'dan açıkça seçtiyse o dil; yoksa İngilizce.
@@ -1993,10 +1993,10 @@ function parseDuel(q){
 async function duelShare(){
   const r=lastResult; if(!r) return;
   const url=duelLink(r); if(!url) return;
-  const txt=`Beat me ⚡ I scored ${r.pct}% on WordSpark`;
+  const txt=`Beat me ⚡ I scored ${r.pct}% on Wordglint`;
   buzz(8);
   try{
-    if(navigator.share){ await navigator.share({title:"WordSpark Duel ⚔️", text:txt, url}); }
+    if(navigator.share){ await navigator.share({title:"Wordglint Duel ⚔️", text:txt, url}); }
     else { await navigator.clipboard.writeText(txt+" "+url); alert(S.lang==="tr"?"Düello linki kopyalandı ⚔️ — rakibine gönder":"Duel link copied ⚔️ — send it to a friend"); }
   }catch(e){}
 }
@@ -2057,12 +2057,12 @@ async function scoreCardBlob(){
     x.fillStyle="#f7f2ff"; x.fillText(t,cx+32,cy+56);
     cx+=w+22;
   });
-  // wordmark: kelim + ŞEK (degrade)
+  // wordmark: WORD + GLINT (degrade)
   x.font="700 64px "+F;
   x.fillStyle="#f7f2ff"; x.fillText("WORD",96,1260);
   const kw=x.measureText("WORD").width;
   const wg=x.createLinearGradient(96+kw,1200,96+kw+220,1260); wg.addColorStop(0,"#ffb23e"); wg.addColorStop(1,"#ff5470");
-  x.fillStyle=wg; x.fillText("SPARK",96+kw,1260);
+  x.fillStyle=wg; x.fillText("GLINT",96+kw,1260);
   x.fillStyle="rgba(150,138,190,.95)"; x.font="500 34px "+F; x.textAlign="right";
   x.fillText("vocabulary at spark speed ⚡",984,1256);
   x.textAlign="left";
@@ -2074,9 +2074,9 @@ function shareText(){
   const r=lastResult||{pct:0};
   if(r.daily){
     const t=today(); const dt=t.slice(8,10)+"."+t.slice(5,7);
-    return {txt:`WordSpark Daily ${dt} ⚡ ${r.pct}% 🔥${effStreak()}-day streak`, url:duelLink(r)};
+    return {txt:`Wordglint Daily ${dt} ⚡ ${r.pct}% 🔥${effStreak()}-day streak`, url:duelLink(r)};
   }
-  return {txt:`I scored ${r.pct}% on WordSpark ⚡ 🔥 ${effStreak()}-day streak, level ${levelInfo().lvl}. Try it:`, url:null};
+  return {txt:`I scored ${r.pct}% on Wordglint ⚡ 🔥 ${effStreak()}-day streak, level ${levelInfo().lvl}. Try it:`, url:null};
 }
 async function share(){
   const {txt,url}=shareText();
@@ -2085,7 +2085,7 @@ async function share(){
     if(navigator.share && navigator.canShare){
       const blob=await scoreCardBlob();
       if(blob){
-        const file=new File([blob],"wordspark-score.png",{type:"image/png"});
+        const file=new File([blob],"wordglint-score.png",{type:"image/png"});
         if(navigator.canShare({files:[file]})){
           const data={files:[file], text:txt+(url?" "+url:"")};
           await navigator.share(data); return;
@@ -2095,7 +2095,7 @@ async function share(){
   }catch(e){ if(e && e.name==="AbortError") return; }
   // 2) metin paylaşımı / pano
   try{
-    if(navigator.share){ await navigator.share(Object.assign({title:"WordSpark ⚡", text:txt}, url?{url}:{})); }
+    if(navigator.share){ await navigator.share(Object.assign({title:"Wordglint ⚡", text:txt}, url?{url}:{})); }
     else { await navigator.clipboard.writeText(txt+(url?" "+url:"")); alert("Score copied — paste it in your story ⚡"); }
   }catch(e){}
 }

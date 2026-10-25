@@ -1,12 +1,12 @@
-# Google Play listing — WordSpark (en-US)
+# Google Play listing — Wordglint (en-US)
 
-**App name (30):** WordSpark: English Vocabulary
+**App name (30):** Wordglint: English Vocabulary
 
 **Short description (80):**
 Academic & everyday English vocabulary in 60-second rounds. Offline.
 
 **Full description (4000):**
-WordSpark turns vocabulary practice into 60-second rounds you can play with one
+Wordglint turns vocabulary practice into 60-second rounds you can play with one
 hand, on the bus, with no connection.
 
 Words flash past. You catch them — put them back in order, decide whether you saw

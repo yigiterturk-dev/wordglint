@@ -1,11 +1,11 @@
-# WordSpark ⚡
+# Wordglint ⚡
 
 Academic and everyday English vocabulary, at spark speed. A single-file offline PWA
 (fork of Kelimşek, retargeted from Turkish exam vocabulary to English vocabulary for
-a global audience) plus a Capacitor Android wrapper in `../wordspark-app`.
+a global audience) plus a Capacitor Android wrapper in `../wordglint-app`.
 
 - **Bilingual.** Interface and word meanings switch between English and Turkish
-  (Settings → Language). Auto-detected from `navigator.language` on first run.
+  (Settings → Language). Defaults to English; Turkish is opt-in.
 - **Offline.** Service worker precaches everything including the word packs.
 - **No backend.** Duels, the daily deck and all progress are local + seeded RNG.
 

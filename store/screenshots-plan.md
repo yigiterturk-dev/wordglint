@@ -1,4 +1,4 @@
-# WordSpark — Play Store görsel planı
+# Wordglint — Play Store görsel planı
 
 Ortak şablon: uygulamanın kendi koyu mor arka planı (`#150826` → `#1e0f34` gradyan)
 üzerine hafif eğik (~3°) uygulama ekranı, üstte büyük overlay başlık
@@ -20,7 +20,7 @@ Boyut: 1080×1920 (portre). 8 kare. Her karede en fazla 1 emoji, tek vurgu kelim
 
 ## Feature graphic (1024×500)
 
-- Sol %55: "**WordSpark**" (Space Grotesk Bold, beyaz); "o" harfinin içi ya da
+- Sol %55: "**Wordglint**" (Space Grotesk Bold, beyaz); "o" harfinin içi ya da
   "k" bitişi stilize kıvılcım olabilir. Altında slogan:
   "**Vocabulary at spark speed.**" (`#b7abda`), altında küçük rozet satırı:
   `NGSL · AWL · NAWL` (turuncu `#ffb23e`).
