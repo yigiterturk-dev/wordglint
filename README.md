@@ -17,7 +17,7 @@ Every pack is built from a published, openly available word list. Nothing is inv
 |---|---|---|---|
 | 🗣 Everyday English | **NGSL** — New General Service List (Browne, Culligan & Phillips) | 2,712 | ~2,800 headwords minus closed-class function words |
 | 🎓 Academic Core | **AWL** — Academic Word List (Coxhead, 2000) | 570 | 10 sublists → difficulty 1/2/3 |
-| 📚 IELTS & TOEFL | **NAWL** — New Academic Word List | 963 | split into thirds by SFI → difficulty 1/2/3 |
+| 📚 IELTS & TOEFL | **NAWL** — New Academic Word List | 868 | 963 headwords minus 95 also in AWL (`scripts/dedupe.mjs`) |
 
 Headwords were scraped from eapfoundation.com's published tables into
 `data/*.seed.json` (`{w, z}` plus source metadata). The seeds carry **only** the
@@ -58,8 +58,8 @@ node scripts/merge-hand.mjs data/hand/batch-NNN.json   # el üretimi partiyi pak
 |---|---|---|---|
 | 🗣 Everyday English | 2,712 | 2,712 | ✔ bitti |
 | 🎓 Academic Core | 570 | 570 | ✔ bitti |
-| 📚 IELTS & TOEFL | 963 | 963 | ✔ bitti |
-| **Total** | **4,245** | **4,245** | **%100 — tamamlandı 🎉** |
+| 📚 IELTS & TOEFL | 868 | 868 | ✔ bitti |
+| **Total** | **4,150** | **4,150** | **%100 — tamamlandı 🎉** |
 
 Hand-written batches live in `data/hand/` and are merged into the pack by
 `scripts/merge-hand.mjs`, which enforces the same quality gate as the

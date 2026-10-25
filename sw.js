@@ -1,5 +1,5 @@
 /* WordSpark service worker — offline-first (works with no connection at all) */
-const CACHE = "wordspark-v2"; // içerik tamamlandı (4245/4245): eski cache'i temizleyip tam yeniden önbellekle
+const CACHE = "wordspark-v3"; // v3: varsayılan İngilizce, yavaş tempolu flash, paket tekrarları temizlendi
 const ASSETS = [
   "./",
   "./index.html",
