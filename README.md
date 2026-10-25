@@ -1,5 +1,7 @@
 # Wordglint ⚡
 
+**Live:** https://yigiterturk-dev.github.io/wordglint/
+
 Academic and everyday English vocabulary, at spark speed. A single-file offline PWA
 (fork of Kelimşek, retargeted from Turkish exam vocabulary to English vocabulary for
 a global audience) plus a Capacitor Android wrapper in `../wordglint-app`.
