@@ -5,8 +5,8 @@ CocoaPods gerekmez (Swift Package Manager).
 
 ## 1. Projeyi aç
 ```
-git clone https://github.com/yigiterturk-dev/wordspark.git   # ya da gönderilen zip
-cd wordspark/native
+git clone https://github.com/yigiterturk-dev/wordglint.git   # ya da gönderilen zip
+cd wordglint/native
 npm install
 npm run sync            # web dosyalarını iOS projesine kopyalar
 open ios/App/App.xcodeproj
@@ -15,13 +15,13 @@ open ios/App/App.xcodeproj
 ## 2. Xcode'da imzalama
 - Sol üstte **App** hedefi → **Signing & Capabilities**
 - **Team**: kendi Developer hesabını seç
-- **Bundle Identifier**: `com.nocturndev.wordspark` (alınmışsa kendine göre değiştir, ör. `com.SENINAD.wordspark`)
+- **Bundle Identifier**: `com.nocturndev.wordglint` (alınmışsa kendine göre değiştir, ör. `com.SENINAD.wordglint`)
 - iPhone'a takıp ▶ ile bir kez çalıştırıp dene
 
 ## 3. App Store Connect'te uygulama kaydı
 appstoreconnect.apple.com → Apps → **+** → New App
 - Platform: iOS · Name: **Wordglint: English Vocabulary** (alınmışsa "Wordglint – Vocabulary")
-- Primary language: English (U.S.) · Bundle ID: 2. adımdaki · SKU: `wordspark-ios-1`
+- Primary language: English (U.S.) · Bundle ID: 2. adımdaki · SKU: `wordglint-ios-1`
 
 Doldurulacaklar:
 | Alan | Değer |
@@ -30,8 +30,8 @@ Doldurulacaklar:
 | Price | Free |
 | Age rating | Anketin hepsine "None" → 4+ |
 | App Privacy | **Data Not Collected** (uygulama hiçbir veri toplamıyor, hiçbir sunucuya bağlanmıyor; font bile gömülü) |
-| Privacy Policy URL | https://nocturndev.com/wordspark/privacy.html |
-| Support URL | https://nocturndev.com/wordspark/support.html |
+| Privacy Policy URL | https://nocturndev.com/wordglint/privacy.html |
+| Support URL | https://nocturndev.com/wordglint/support.html |
 | Description / keywords | `listing-ios-en.md` |
 | Screenshots (6.9") | `screenshots-6.9/` klasörü (1320×2868) |
 | App icon | Projede hazır; 1024'lük: `app-icon-1024.png` |
