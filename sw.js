@@ -1,5 +1,5 @@
 /* WordSpark service worker — offline-first (works with no connection at all) */
-const CACHE = "wordspark-v3"; // v3: varsayılan İngilizce, yavaş tempolu flash, paket tekrarları temizlendi
+const CACHE = "wordspark-v4"; // v4: sonuç/düello metinleri dile göre, düello adı kaçışlandı, hız hatırlanıyor
 const ASSETS = [
   "./",
   "./index.html",

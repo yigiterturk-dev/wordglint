@@ -1049,7 +1049,7 @@ new MutationObserver(ms=>{
 }).observe(document.documentElement,{childList:true,subtree:true});
 
 /* ============ oturum ayarları ============ */
-let mode="order", pack="core", n=12, speed=800;                 // ana ekran seçimleri
+let mode="order", pack="core", n=12, speed=LS.get("speed",800); // ana ekran seçimleri (hız hatırlanır)
 let rMode="order", rPack="core", rN=12, rSpeed=800;             // aktif TURUN ayarları (düello/günlük farklı olabilir)
 let sequence=[], answer=[], recog=[], recogIdx=0, recogScore=0;
 let session=0, recallLocked=false; // session: aktif tur token'ı — artınca eski timer zincirleri ölür
@@ -1078,6 +1078,8 @@ function wordStatus(st){
   return "study";
 }
 const ST_TR={new:"New", study:"Learning", weak:"Weak", learned:"Learned"};
+const ST_TR_TR={new:"Yeni", study:"Çalışılıyor", weak:"Zayıf", learned:"Öğrenildi"};
+function statusLabel(st){ return S.lang==="tr" ? (ST_TR_TR[st]||st) : (ST_TR[st]||st); }
 /* Paket ilerlemesi — sözlük kartı + istatistik satırı için */
 function packProgress(pk){
   const r={total:0,studied:0,learned:0,weak:0};
@@ -1098,9 +1100,10 @@ function favTog(pk,w){
   LS.set("fav",FAV); buzz(6);
 }
 function favList(){ // zayıf deste kalıbının aynısı: kaynaktan anlam+cümle çözülür
-  const out=[];
+  const out=[], seen=new Set();
   for(const k in FAV){
     const i=k.indexOf(":"), pk=k.slice(0,i), w=k.slice(i+1);
+    if(seen.has(w.toLowerCase())) continue; seen.add(w.toLowerCase()); // aynı kelime iki pakette yıldızlıysa bir kez
     const src=PACKS[pk] && PACKS[pk].words.find(o=>o.w===w);
     if(src) out.push(Object.assign({p:pk},src));
   }
@@ -1135,10 +1138,11 @@ function weightedPick(pool,count){
 }
 /* Tüm paketlerdeki wrong≥1 kelimeler → sanal "Zayıf Kelimeler" destesi */
 function weakList(){
-  const out=[];
+  const out=[], seen=new Set();
   for(const k in SRS){
     if(!SRS[k] || (SRS[k].wrong||0)<1) continue;
     const i=k.indexOf(":"), pk=k.slice(0,i), w=k.slice(i+1);
+    if(seen.has(w.toLowerCase())) continue; seen.add(w.toLowerCase());
     const src=PACKS[pk] && PACKS[pk].words.find(o=>o.w===w);
     if(src) out.push(Object.assign({p:pk},src)); // anlam + örnek cümle kaynaktan gelir
   }
@@ -1386,7 +1390,7 @@ function buyPack(){ const k=pending; if(!S.owned.includes(k)) S.owned.push(k); s
 function buyPro(){ S.pro=true; save(); afterUnlock(); }
 
 $("#segCount").addEventListener("click",e=>{ if(e.target.dataset.n){ n=+e.target.dataset.n; segSel("#segCount",e.target); buzz(6);} });
-$("#segSpeed").addEventListener("click",e=>{ if(e.target.dataset.ms){ speed=+e.target.dataset.ms; segSel("#segSpeed",e.target); buzz(6);} });
+$("#segSpeed").addEventListener("click",e=>{ if(e.target.dataset.ms){ speed=+e.target.dataset.ms; LS.set("speed",speed); segSel("#segSpeed",e.target); buzz(6);} });
 $("#segDiff").addEventListener("click",e=>{ if(e.target.dataset.z!==undefined){ diff=+e.target.dataset.z; segSel("#segDiff",e.target); buzz(6);} });
 function segSel(w,el){ $$(w+" button").forEach(b=>b.classList.remove("sel")); el.classList.add("sel"); }
 
@@ -1766,7 +1770,7 @@ function updTimeHud(){
   bar.classList.toggle("urgent",urgent); clk.classList.toggle("urgent",urgent);
   bar.querySelector("i").style.width=Math.max(0,timeLeft/TIME_CAP*100)+"%";
   clk.textContent=Math.max(0,Math.ceil(timeLeft));
-  $("#timeScore").textContent=timeOk+" doğru";
+  $("#timeScore").textContent=timeOk+(S.lang==="tr"?" doğru":" correct");
 }
 function nextTimeQ(){
   timeLock=false;
@@ -1855,7 +1859,7 @@ function examPick(btn){
   const key=qt==="mean"?q.m:q.w, c=(btn.textContent===key);
   $$("#examOpts .mopt").forEach(b=>{ if(b.textContent===key) b.classList.add("ok"); });
   if(!c) btn.classList.add("bad");
-  examDone(c, btn, c?"doğru":"✗");
+  examDone(c, btn, c?"✓":"✗");
 }
 function examWriteSubmit(){
   if(exLock || exIdx>=sequence.length) return;
@@ -1864,7 +1868,7 @@ function examWriteSubmit(){
   exLock=true; inp.disabled=true;
   const c=writeMatch(val,q.w);
   $("#examReveal").innerHTML=c?('<span class="wreveal">'+q.w+' ✓</span>'):q.w;
-  examDone(c, inp, c?"doğru":(val.trim()||"—"));
+  examDone(c, inp, c?"✓":(val.trim()||"—"));
 }
 function examDone(c,el,ansTxt){
   const q=sequence[exIdx], qt=exTypes[exIdx];
@@ -1879,7 +1883,9 @@ $("#examInp").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefa
 function gradeExam(){ const rows=exRows; exRows=[]; return {ok:exOk, total:sequence.length, rows, exam:true}; }
 
 /* ============ SONUÇ ============ */
-const MODE_TITLE={order:"SIRALI HATIRLAMA", recog:"TANIDIN MI?", mean:"ANLAMI SEÇ", write:"YAZ BAKALIM", time:"ZAMANA KARŞI", exam:"MİNİ DENEME"};
+const MODE_TITLE={order:"RECALL THE ORDER", recog:"WAS IT THERE?", mean:"PICK THE MEANING", write:"TYPE IT OUT", time:"BEAT THE CLOCK", exam:"MOCK TEST"};
+const MODE_TITLE_TR={order:"SIRALI HATIRLAMA", recog:"TANIDIN MI?", mean:"ANLAMI SEÇ", write:"YAZ BAKALIM", time:"ZAMANA KARŞI", exam:"MİNİ DENEME"};
+function modeTitle(m){ return (S.lang==="tr" && MODE_TITLE_TR[m]) || MODE_TITLE[m]; }
 function finish(g){
   const pct=Math.round(g.ok/g.total*100);
   // XP + kombo bonusu + streak + günlük
@@ -1904,9 +1910,9 @@ function finish(g){
   const newBadges=checkBadges({runs:S.runs, pct, bestCombo, streak:effStreak(), wordsSeen:S.wordsSeen, duel:!!runDuel, dailyRuns:S.dailyRuns, hour:new Date().getHours(), weakPct:(rPack==="weak"?pct:0), timeOk:(rMode==="time"?g.ok:0), examRuns:S.examRuns, examPct:(g.exam?pct:0)});
 
   const cls=pct>=80?"good":pct>=50?"mid":"low";
-  $("#scMode").textContent=(runDaily?"DAILY · ":"")+MODE_TITLE[rMode];
+  $("#scMode").textContent=(runDaily?"DAILY · ":"")+modeTitle(rMode);
   $("#scPct").className="pct "+cls; countUp($("#scPct"),pct);
-  $("#scSub").textContent=g.ok+" / "+g.total+" doğru · "+PACKS[rPack].name;
+  $("#scSub").textContent=g.ok+" / "+g.total+(S.lang==="tr"?" doğru · ":" correct · ")+PACKS[rPack].name;
 
   // Düello karşılaştırması (varsa) — zayıf/favori desteler kişiye özel olduğundan düelloya kapalı
   $("#duelBtn").style.display=((rPack==="weak"||rPack==="fav")?"none":"");
@@ -1914,18 +1920,18 @@ function finish(g){
   if(runDuel){
     const opp=runDuel.score, win=pct>opp, tie=pct===opp;
     dc.style.display="block";
-    dc.innerHTML=`⚔️ Sen <span class="${win?'win':(tie?'':'lose')}">%${pct}${win?' 🏆':''}</span> — Rakip${runDuel.name?' '+runDuel.name:''} %${opp}${(!win&&!tie)?' 🏆':''}${tie?' · Berabere!':''}`;
+    dc.innerHTML=`⚔️ ${S.lang==="tr"?"Sen":"You"} <span class="${win?'win':(tie?'':'lose')}">%${pct}${win?' 🏆':''}</span> — ${S.lang==="tr"?"Rakip":"Opponent"}${runDuel.name?' '+esc(runDuel.name):''} %${opp}${(!win&&!tie)?' 🏆':''}${tie?(S.lang==="tr"?' · Berabere!':' · Draw!'):''}`;
     $("#duelBtn").textContent="Rematch ⚔️";
-  } else { dc.style.display="none"; dc.innerHTML=""; $("#duelBtn").textContent="Düello ⚔️"; }
+  } else { dc.style.display="none"; dc.innerHTML=""; $("#duelBtn").textContent=S.lang==="tr"?"Düello ⚔️":"Duel ⚔️"; }
   $("#scChips").innerHTML=`
-    ${rMode==="time"?`<span class="chip">⏱ <span class="hl">${g.ok}</span> kelime</span>`:""}
+    ${rMode==="time"?`<span class="chip">⏱ <span class="hl">${g.ok}</span> ${S.lang==="tr"?"kelime":"words"}</span>`:""}
     <span class="chip">🔥 <span class="hl">${effStreak()}</span> streak</span>
     <span class="chip">⚡ Lv <span class="hl">${levelInfo().lvl}</span></span>
-    ${bestCombo>=2?`<span class="chip">🔗 <span class="hl">${bestCombo}x</span> kombo</span>`:""}
+    ${bestCombo>=2?`<span class="chip">🔗 <span class="hl">${bestCombo}x</span> combo</span>`:""}
     <span class="chip">+<span class="hl">${gained}</span> XP</span>
     ${newBadges.map(b=>`<span class="chip">🏅 <span class="hl">${b.e} ${b.n}</span></span>`).join("")}`;
   $("#xpGain").textContent = (pct>=80 ? `Nice! +${gained} XP` : `+${gained} XP · 80%+ keeps your daily streak`)
-    + (comboXP>0 ? ` (${comboXP} kombo bonusu)` : "");
+    + (comboXP>0 ? ` (${comboXP} ${S.lang==="tr"?"kombo bonusu":"combo bonus"})` : "");
   // v7: Deneme Karnesi — soru tipi bazlı kırılım (rows[].qt üzerinden)
   const eb=$("#examBreak");
   if(g.exam){
@@ -1941,9 +1947,8 @@ function finish(g){
   $("#review").innerHTML = g.rows.map((r,i)=>{
     const re=emo(r); // v6: emoji katmanı — inceleme satırında da
     const wrongTxt = rMode==='order' ? r.a
-                   : rMode==='write' ? (r.a||'—')           // yazdığı vs doğru
-                   : rMode==='exam' ? (r.qt==='write' ? (r.a||'—') : '✗')
-                   : (rMode==='mean'||rMode==='time') ? '✗' : 'yanlış';
+                   : (rMode==='write' || (rMode==='exam' && r.qt==='write')) ? (r.a||'—')
+                   : '✗';
     return `<div class="rrow" style="animation-delay:${Math.min(i*45,600)}ms"><span class="i">${i+1}</span>
     <span class="w">${re?`<span class="remo">${re}</span>`:""}${r.w}${r.m?`<div class="rm">${r.m}</div>`:""}${r.s?`<div class="rsent">${r.s}</div>`:""}</span>
     <span class="${r.c?'ok':'no'}">${r.c?'✓':wrongTxt}</span></div>`;
@@ -1970,6 +1975,7 @@ function finish(g){
 /* payload: seed|pack|mode|n|speed|score|name — base64url, Türkçe karakter güvenli */
 function encB64(s){ return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
 function decB64(s){ return decodeURIComponent(escape(atob(s.replace(/-/g,"+").replace(/_/g,"/")))); }
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function duelLink(r){
   if(NATIVE_FREE) return null;
   const payload=[r.seed,r.pack,r.mode,r.n,r.speed,r.pct,r.name||""].join("|");
@@ -1978,7 +1984,7 @@ function duelLink(r){
 function parseDuel(q){
   try{
     const p=decB64(q).split("|");
-    const d={seed:(+p[0])>>>0, pack:p[1], mode:p[2], n:+p[3], speed:+p[4], score:+p[5], name:p[6]||""};
+    const d={seed:(+p[0])>>>0, pack:p[1], mode:p[2], n:+p[3], speed:+p[4], score:+p[5], name:(p[6]||"").slice(0,24)};
     if(!PACKS[d.pack] || d.pack==="weak" || d.pack==="fav" || !MODE_TITLE[d.mode] || !(d.n>0) || !(d.speed>0) || isNaN(d.score)) return null;
     return d;
   }catch(e){ return null; }
@@ -1991,12 +1997,12 @@ async function duelShare(){
   buzz(8);
   try{
     if(navigator.share){ await navigator.share({title:"WordSpark Duel ⚔️", text:txt, url}); }
-    else { await navigator.clipboard.writeText(txt+" "+url); alert("Düello linki kopyalandı ⚔️ — rakibine gönder"); }
+    else { await navigator.clipboard.writeText(txt+" "+url); alert(S.lang==="tr"?"Düello linki kopyalandı ⚔️ — rakibine gönder":"Duel link copied ⚔️ — send it to a friend"); }
   }catch(e){}
 }
 function openDuelIntro(){
   const d=duelPending; if(!d) return;
-  $("#dlDesc").textContent=PACKS[d.pack].name+" · "+MODE_TITLE[d.mode]+" · "+d.n+" kelime";
+  $("#dlDesc").textContent=PACKS[d.pack].name+" · "+modeTitle(d.mode)+" · "+d.n+(S.lang==="tr"?" kelime":" words");
   $("#dlLead").textContent=`Your challenger${d.name?" "+d.name:""} scored ${d.score}% — same deck, how do you do?`;
   $("#duelIntro").classList.add("on"); buzz([8,30,8]);
 }
@@ -2031,7 +2037,7 @@ async function scoreCardBlob(){
   x.shadowBlur=0; x.textAlign="left"; x.textBaseline="alphabetic";
   // üst etiket
   x.fillStyle="rgba(183,171,218,.9)"; x.font="600 40px "+F;
-  const lbl=(r.daily?"DAILY · ":"")+MODE_TITLE[r.mode];
+  const lbl=(r.daily?"DAILY · ":"")+modeTitle(r.mode);
   x.fillText(lbl,96,560);
   // dev yüzde
   x.fillStyle = r.pct>=80 ? "#39e29a" : r.pct>=50 ? "#ffb23e" : "#ff5470";
@@ -2039,9 +2045,9 @@ async function scoreCardBlob(){
   x.fillText("%"+r.pct,80,880);
   // alt bilgi
   x.fillStyle="#f7f2ff"; x.font="600 48px "+F;
-  x.fillText(r.ok+" / "+r.total+" doğru · "+PACKS[r.pack].name,96,960);
+  x.fillText(r.ok+" / "+r.total+(S.lang==="tr"?" doğru · ":" correct · ")+PACKS[r.pack].name,96,960);
   // çipler
-  const chips=["🔥 "+r.streak+" streak","⚡ Lv "+r.lvl].concat(r.bestCombo>=2?["🔗 "+r.bestCombo+"x kombo"]:[]);
+  const chips=["🔥 "+r.streak+" streak","⚡ Lv "+r.lvl].concat(r.bestCombo>=2?["🔗 "+r.bestCombo+"x combo"]:[]);
   let cx=96; const cy=1030;
   x.font="600 38px "+F;
   chips.forEach(t=>{
@@ -2106,7 +2112,8 @@ function renderDict(){
   $("#dictSeg").innerHTML=DICT_PACKS.map(k=>`<button class="${k===dPk?'sel':''}" onclick="dictPick('${k}')">${PACKS[k]?PACKS[k].name:k}</button>`).join("");
   const pr=packProgress(dPk);
   const pctW=pr.total?Math.round(pr.studied/pr.total*100):0;
-  $("#dictProg").innerHTML=`${PACKS[dPk].emo} <b>${PACKS[dPk].name}</b>: <b>${pr.studied}</b>/${pr.total} studied · <b>${pr.learned}</b> learned · <b>${pr.weak}</b> weak
+  const L=S.lang==="tr";
+  $("#dictProg").innerHTML=`${PACKS[dPk].emo} <b>${PACKS[dPk].name}</b>: <b>${pr.studied}</b>/${pr.total} ${L?"çalışıldı":"studied"} · <b>${pr.learned}</b> ${L?"öğrenildi":"learned"} · <b>${pr.weak}</b> ${L?"zayıf":"weak"}
     <div class="track"><i style="width:${pctW}%"></i></div>`;
   renderDictList();
 }
@@ -2116,7 +2123,7 @@ function renderDictList(){
   $("#dictList").innerHTML=list.slice(0,dLimit).map(o=>{
     const st=wordStatus(SRS[dPk+":"+o.w]), fav=!!FAV[dPk+":"+o.w], e=fe(o.w);
     return `<div class="drow" onclick="this.classList.toggle('open')">
-      <div class="dt"><b>${e?e+" ":""}${o.w}</b><span class="stb ${st}">${ST_TR[st]}</span>
+      <div class="dt"><b>${e?e+" ":""}${o.w}</b><span class="stb ${st}">${statusLabel(st)}</span>
         <span class="fstar ${fav?'on':''}" onclick="event.stopPropagation();favTog('${dPk}','${o.w.replace(/'/g,"\\'")}');this.classList.toggle('on')">⭐</span></div>
       <div class="dm">${o.m}</div>${o.s?`<div class="ds">${o.s}</div>`:""}
     </div>`;
@@ -2167,6 +2174,7 @@ function fillStats(){
   $("#stStreak").textContent=effStreak(); $("#stBest").textContent=S.best+"%";
   $("#stRuns").textContent=S.runs; $("#stLvl").textContent=levelInfo().lvl;
   $("#stAvg").textContent=(S.runs?Math.round(S.scoreSum/S.runs):0)+"%"; $("#stXp").textContent=S.xp;
+  $$("#segSpeed button").forEach(b=>b.classList.toggle("sel",+b.dataset.ms===speed));
   $("#swHaptic").classList.toggle("on",S.haptic);
   $("#swSound").classList.toggle("on",S.sound);
   $("#swMean").classList.toggle("on",effShowMean());
@@ -2182,6 +2190,7 @@ function fillStats(){
 
 /* ============ init ============ */
 (function init(){
+  $$("#segSpeed button").forEach(b=>b.classList.toggle("sel",+b.dataset.ms===speed));
   $("#swHaptic").classList.toggle("on",S.haptic);
   $("#swSound").classList.toggle("on",S.sound);
   $("#swMean").classList.toggle("on",effShowMean());
